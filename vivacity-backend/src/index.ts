@@ -1,6 +1,8 @@
 import express, {Express, Request, Response} from "express";
+import cors from "cors"
 
-type IPersonalData = {
+
+type PersonalData = {
     name: string,
     age: number,
     bio: string,
@@ -8,9 +10,14 @@ type IPersonalData = {
     isGraduated: boolean,
 }
 
-const app: Express = express()
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+}
 
+const app: Express = express()
 app.use(express.json())
+app.use(cors(corsOptions))
 
 app.get("/", (req:Request, res:Response)=>{
     res.status(200).json({"status":"api running"})
@@ -18,7 +25,7 @@ app.get("/", (req:Request, res:Response)=>{
 
 app.get("/awesome/applicant", async (req:Request, res:Response)=>{
 
-    const myInfo: IPersonalData = {
+    const myInfo: PersonalData = {
         name: "John Gorriceta",
         age: 22,
         bio: "As a passionate full-stack developer, I specialize in creating dynamic web applications using cutting-edge technologies like Next.js, React, and TypeScript. My backend expertise encompasses languages like C# and Python, bolstered by a strong foundation in Cloud Computing. Beyond my technical prowess, I'm a fervent advocate for the open-source community. Reflecting this commitment, I've transitioned my entire development toolkit to open-source products, underscoring my belief in collaborative innovation and the power of shared knowledge. I continuously strive to leverage and contribute to the open-source realm, pushing boundaries to deliver exceptional digital experiences.",
@@ -29,6 +36,6 @@ app.get("/awesome/applicant", async (req:Request, res:Response)=>{
     return res.status(200).json({ personalData: myInfo });
 })
 
-app.listen(3000, () => {
-    console.log(`Server is running on port ${3000}.`);
+app.listen(8080, () => {
+    console.log(`Server is running on port ${8080}.`);
 });
