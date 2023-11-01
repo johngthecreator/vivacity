@@ -2,7 +2,7 @@ import { PersonalData } from "@/personalData";
 import Image from "next/image";
 
 async function getData() {
-  const res = await fetch('http://localhost:8080/awesome/applicant')
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/awesome/applicant`)
  
   if (!res.ok) {
     throw new Error('Failed to fetch data')
